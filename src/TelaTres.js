@@ -12,6 +12,7 @@ export default function TelaTres(props) {
   const [sessao, setSessao] = useState(null);
   const [lugarSelecionado, setLugarSelecionado] = useState([]);
   const [dadosUsuario, setDadosUsuario] = useState({ nome: "", cpf: "" });
+  console.log(dadosUsuario);
 
   useEffect(() => {
 
@@ -76,6 +77,7 @@ export default function TelaTres(props) {
       });
 
       promise.then(resposta => {
+        console.log("entrei");
         fecharCompra({
           movie: sessao.movie.title,
           day: sessao.day.date,
@@ -95,6 +97,7 @@ export default function TelaTres(props) {
   function formulario() {
     return (
       <>
+      <form onSubmit={finalizaCompra}>
         <label htmlFor="nome">Nome</label>
         <input
           type="text"
@@ -118,8 +121,9 @@ export default function TelaTres(props) {
           }
         />
         <div>
-          <button className="botaoAssento">Reservar assento(s)</button>
+          <button className="botaoAssento" type="submit">Reservar assento(s)</button>
         </div>
+        </form>
       </>
     );
   }
@@ -132,6 +136,17 @@ export default function TelaTres(props) {
         <h2>Selecione o(s) assento(s)</h2>
       </Conteudo>
       <Assentoo>{assentos}</Assentoo>
+      <Status>
+        <div className="agrupar">
+          <div className="dimensao disponivel"></div><h2>Selecionado</h2>
+        </div>
+        <div className="agrupar">
+          <div className="dimensao reservado"></div><h2>Disponível</h2>
+        </div>
+        <div className="agrupar"><div className="dimensao selecionado"></div><h2>Indisponível</h2>
+        </div>
+        
+      </Status>
         <Formulario 
           onSubmit={finalizaCompra}>{submeterCompra}
         </Formulario>
@@ -161,13 +176,12 @@ const Assentoo = styled.div`
 const Formulario = styled.div`
 
   display: flex;
-  flex-direction: column;
   align-self: start;
   width: 100%;
   margin-bottom: 200px;
   margin-left: 23px;
   input {
-    width: 90%;
+    width: 100%;
     height: 50px;
     padding-left: 20px;
     margin-top: 8px;
@@ -186,5 +200,40 @@ const Formulario = styled.div`
     justify-content: center;
     font-size: 18px;
     color: #FFFFFF;
+  }
+`
+
+const Status = styled.div `
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  
+  .agrupar{
+    min-width: 180px
+  }
+  .dimensao {
+    width: 26px;
+    height: 26px;
+    border: 1px solid;
+    border-radius: 50%; 
+    margin-bottom: 10px;
+    margin-left: 20px;
+  }
+
+  .disponivel {
+    background-color: #1AAE9E;
+    border: #0E7D71;
+    
+  }
+
+  .reservado {
+    background-color: #7B8B99;
+    border: #7B8B99;
+  }
+
+  .selecionado {
+    background-color: #FBE192;
+    border: #F7C52B;
   }
 `

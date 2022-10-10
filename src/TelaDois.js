@@ -113,7 +113,6 @@ const Rodape = styled.div`
     display: flex;
     align-items: center;
     background-color: #dfe6ed;
-
     img {
         width: 64px;
         height: 89px;
@@ -125,7 +124,6 @@ const Rodape = styled.div`
         margin-right: 15px;
         padding: 6px;
     }
-
     h2 {
         color: #293845;
         display: flex;
